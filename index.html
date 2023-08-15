@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+<h1> Traslacion de Vectores </h1>
+
+<p>Vector Original: <input id = "Vo" /> </p>
+<p>Vector Traslacion: <input id = "Vt" /> </p>
+<p>Vector Resultado: </p>
+
+<button id="B_traslacion" onclick="Traslacion()">Realizar traslacion</button>
+
+<script>
+function Traslacion(){
+    var aos = document.getElementById("Vo").value;
+    aos = aos.split(",");
+    aon =[];
+    aos.forEach((x) => {
+        aon.push(Number(x))
+    });
+
+    alert(aon[0]+aon[1]+aon[2]);
+}
+
+</script>
+
+</body>
+</html>
