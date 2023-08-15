@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        function byId(id) {
+            return document.getElementById(id).value;
+        }
+        function arraystring(arreglo, lim) {
+            //Leer datos de vo 
+            var arrs = arreglo.split(lim);
+            arrn = [];
+            arrs.forEach((elem) => {
+                arrn.push(Number(elem))
+            });
+            alert(arrn[0] + arrn[1] + arrn[2]);
+            return arrn;
+        }
+        function traslacion() {
+            //var aos = document.getElementById("vo").value.split(",");
+            aon = arraystring(byId("vo"), ",")
+            atn = arraystring(byId("vt"), ",")
+            document.getElementById("vr").value = sum(aon, atn)
+
+        }
+
+        function sum(array1, array2) {
+            return array1.map(function (num, idx) {
+                return num + array2[idx]
+            });
+        };
+
+        function mul(array1, array2) {
+            return array1.map(function (num, idx) {
+                return num * array2[idx]
+            });
+        };
+    </script>
 </head>
 
 <body>
-
-<h1> Traslacion de Vectores </h1>
-
-<p>Vector Original: <input id = "Vo" /> </p>
-<p>Vector Traslacion: <input id = "Vt" /> </p>
-<p>Vector Resultado: </p>
-
-<button id="B_traslacion" onclick="Traslacion()">Realizar traslacion</button>
-
-<script>
-function Traslacion(){
-    var aos = document.getElementById("Vo").value;
-    aos = aos.split(",");
-    aon =[];
-    aos.forEach((x) => {
-        aon.push(Number(x))
-    });
-
-    alert(aon[0]+aon[1]+aon[2]);
-}
-
-</script>
-
+    <p>Vector Original:
+        <input id="vo" size="10"> <!--Vector original-->
+    </p>
+    <p>Vector Traslacion:
+        <input id="vt" size="10"> <!--Vector traslacion-->
+    </p>
+    <p>Vector Trasladado:
+        <input id="vr" size="10"> <!--Vector trasladado-->
+    </p>
+    <button id="btn_tr" onclick="traslacion()">Realizar traslacion</button>
 </body>
+
 </html>
