@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        h2 {
+            color: purple;
+            font-size: 25px;
+            font-family: "Berlin Sans FB", sans-serif;
+        }
+
+        body {
+            font-size: 20px;
+            font-family: "Bahnschrift Light", sans-serif;
+            color: black;
+        }
+    </style>
+
+    <script>
+        function rotarVector() {
+            var anguloX = parseFloat(document.getElementById("angleX").value);
+            var anguloY = parseFloat(document.getElementById("angleY").value);
+            var anguloZ = parseFloat(document.getElementById("angleZ").value);
+
+            var vector = document.getElementById("vector").value;
+            var vectorCoordenada = vector.split(",").map(parseFloat);
+
+            var rotacionX = [
+                [1, 0, 0],
+                [0, Math.cos(anguloX), -Math.sin(anguloX)],
+                [0, Math.sin(anguloX), Math.cos(anguloX)]
+            ];
+
+            var rotacionY = [
+                [Math.cos(anguloY), 0, Math.sin(anguloY)],
+                [0, 1, 0],
+                [-Math.sin(anguloY), 0, Math.cos(anguloY)]
+            ];
+
+            var rotacionZ = [
+                [Math.cos(anguloZ), -Math.sin(anguloZ), 0],
+                [Math.sin(anguloZ), Math.cos(anguloZ), 0],
+                [0, 0, 1]
+            ];
+
+            var rotarVector = MatrizVector(rotacionX, vectorCoordenada);
+            rotarVector = MatrizVector(rotacionY, rotarVector);
+            rotarVector = MatrizVector(rotacionZ, rotarVector);
+
+            var rotarX = rotarVector[0];
+            var rotarY = rotarVector[1];
+            var rotarZ = rotarVector[2];
+
+            document.getElementById("rotatedVector").innerHTML = "El vector rotado es: (" + rotarX.toFixed(2) + ", " + rotarY.toFixed(2) + ", " + rotarZ.toFixed(2) + ")";
+        }
+
+        function MatrizVector(matriz, vector) {
+            var resultado = [];
+            for (var i = 0; i < matriz.length; i++) {
+                var suma = 0;
+                for (var j = 0; j < vector.length; j++) {
+                    suma += matriz[i][j] * vector[j];
+                }
+                resultado.push(suma);
+            }
+            return resultado;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Rotación con Matrices</h2>
+    <label for="angleX">Ángulo de rotación x:</label>
+    <input type="text" id="angleX">
+    <br><br>
+    <label for="angleY">Ángulo de rotación y:</label>
+    <input type="text" id="angleY">
+    <br><br>
+    <label for="angleZ">Ángulo de rotación z:</label>
+    <input type="text" id="angleZ">
+    <br><br>
+    <label for="vector">Ingrese el vector (x, y, z):</label>
+    <input type="text" id="vector">
+    <br><br>
+    <button onclick="rotarVector()">Rotar</button>
+    <br><br>
+    <p id="rotatedVector"></p>
+</body>
+
+</html>
