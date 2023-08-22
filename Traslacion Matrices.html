@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        h2 {
+            color: purple;
+            font-size: 25px;
+            font-family: "Berlin Sans FB", sans-serif;
+        }
+
+        body {
+            font-size: 20px;
+            font-family: "Bahnschrift Light", sans-serif;
+            color: black;
+        }
+    </style>
+
+    <script>
+        function trasladarVector() {
+            var tx = parseFloat(document.getElementById("tx").value);
+            var ty = parseFloat(document.getElementById("ty").value);
+            var tz = parseFloat(document.getElementById("tz").value);
+
+            var vector = document.getElementById("vector").value;
+            var vectorCoordenada = vector.split(",").map(parseFloat);
+
+            var traslacionMatriz = [
+                [1, 0, 0, tx],
+                [0, 1, 0, ty],
+                [0, 0, 1, tz],
+                [0, 0, 0, 1]
+            ];
+
+            var vectorHomo = [vectorCoordenada[0], vectorCoordenada[1], vectorCoordenada[2], 1];
+
+            var resultadoVector = MatrizVector(traslacionMatriz, vectorHomo);
+
+            var trasladarX = resultadoVector[0];
+            var trasladarY = resultadoVector[1];
+            var trasladarZ = resultadoVector[2];
+
+            document.getElementById("translatedVector").innerHTML = "El vector trasladado es: (" + trasladarX.toFixed(2) + ", " + trasladarY.toFixed(2) + ", " + trasladarZ.toFixed(2) + ")";
+        }
+
+        function MatrizVector(matriz, vector) {
+            var resultado = [];
+            for (var i = 0; i < matriz.length; i++) {
+                var suma = 0;
+                for (var j = 0; j < vector.length; j++) {
+                    suma += matriz[i][j] * vector[j];
+                }
+                resultado.push(suma);
+            }
+            return resultado;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Traslación con Matrices</h2>
+    <label for="tx">Valor de traslación x:</label>
+    <input type="text" id="tx">
+    <br><br>
+    <label for="ty">Valor de traslación y:</label>
+    <input type="text" id="ty">
+    <br><br>
+    <label for="tz">Valor de traslación z:</label>
+    <input type="text" id="tz">
+    <br><br>
+    <label for="vector">Ingrese el vector (x, y, z):</label>
+    <input type="text" id="vector">
+    <br><br>
+    <button onclick="trasladarVector()">Trasladar</button>
+    <br><br>
+    <p id="translatedVector"></p>
+</body>
+
+</html>
