@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        h2 {
+            color: purple;
+            font-size: 25px;
+            font-family: "Berlin Sans FB", sans-serif;
+        }
+
+        body {
+            font-size: 20px;
+            font-family: "Bahnschrift Light", sans-serif;
+            color: black;
+        }
+    </style>
+
+    <script>
+        function escalarVector() {
+            var escalaX = parseFloat(document.getElementById("scaleX").value);
+            var escalaY = parseFloat(document.getElementById("scaleY").value);
+            var escalaZ = parseFloat(document.getElementById("scaleZ").value);
+
+            var vector = document.getElementById("vector").value;
+            var vectorCoordenada = vector.split(",").map(parseFloat);
+
+            var escalaMatriz = [
+                [escalaX, 0, 0],
+                [0, escalaY, 0],
+                [0, 0, escalaZ]
+            ];
+
+            var vectorEscalado = MatrizVector(escalaMatriz, vectorCoordenada);
+
+            var escaladoX = vectorEscalado[0];
+            var escaladoY = vectorEscalado[1];
+            var escaladoZ = vectorEscalado[2];
+
+            document.getElementById("scaledVector").innerHTML = "El vector escalado es: (" + escaladoX.toFixed(2) + ", " + escaladoY.toFixed(2) + ", " + escaladoZ.toFixed(2) + ")";
+        }
+
+        function MatrizVector(matriz, vector) {
+            var resultado = [];
+            for (var i = 0; i < matriz.length; i++) {
+                var suma = 0;
+                for (var j = 0; j < vector.length; j++) {
+                    suma += matriz[i][j] * vector[j];
+                }
+                resultado.push(suma);
+            }
+            return resultado;
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Escala con Matrices</h2>
+    <label for="scaleX">Factor de escala x:</label>
+    <input type="text" id="scaleX">
+    <br><br>
+    <label for="scaleY">Factor de escala y:</label>
+    <input type="text" id="scaleY">
+    <br><br>
+    <label for="scaleZ">Factor de escala z:</label>
+    <input type="text" id="scaleZ">
+    <br><br>
+    <label for="vector">Ingrese el vector (x, y, z):</label>
+    <input type="text" id="vector">
+    <br><br>
+    <button onclick="escalarVector()">Escalar</button>
+    <br><br>
+    <p id="scaledVector"></p>
+</body>
+
+</html>
